@@ -77,7 +77,7 @@ export default function Page() {
                 renderer={(role) => (
                   <>
                     <div>{role.name}</div>
-                    <div className="text-right">
+                    <div className="text-right font-mono">
                       <ConditionalContent condition={role.end}>
                         <span>
                           {role.start} - {role.end}
@@ -224,7 +224,7 @@ export default function Page() {
                 {
                   name: "Computer Programmer",
                   start: "Jul 2019",
-                  end: "Sept 2020",
+                  end: "Sep 2020",
                 },
               ]}
             />
