@@ -9,7 +9,7 @@ export type Props = {
     | undefined
     | null
     | object;
-  children: React.ReactNode;
+  children: React.ReactNode | React.ReactNode[];
 };
 
 export default function Component(props: Props) {

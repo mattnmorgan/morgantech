@@ -1,8 +1,102 @@
 import Image from "next/image";
 import labels from "@/app/labels";
 import IterativeContent from "@/components/system/iterative-content";
+import ConditionalContent from "@/components/system/conditional-content";
 
 export default function Page() {
+  function Skillset(props: {
+    iconSrc: string;
+    header: string;
+    skills: string[];
+  }) {
+    return (
+      <>
+        <div className="mb-2">
+          <div className="font-semibold">
+            <Image
+              src={props.iconSrc}
+              className="dark:invert inline-block mr-2"
+              alt=""
+              width={16}
+              height={16}
+              aria-hidden={true}
+            ></Image>
+            <span>{props.header}</span>
+          </div>
+          <div className="text-sm ml-6">
+            <ul>
+              <IterativeContent
+                collection={props.skills}
+                renderer={(skill) => <li>{skill}</li>}
+              />
+            </ul>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function Workplace(props: {
+    logoSrc?: string;
+    company: string;
+    location: string;
+    remote?: boolean;
+    roles?: {
+      name: string;
+      start: string;
+      end?: string;
+    }[];
+  }) {
+    return (
+      <>
+        <div className="pb-3">
+          <div className="pb-1">
+            <ConditionalContent condition={props.logoSrc}>
+              <Image
+                className="inline-block mr-2 outline-1 outline-white"
+                src={props.logoSrc!}
+                width={16}
+                height={16}
+                alt=""
+                aria-hidden={true}
+              />
+            </ConditionalContent>
+            <span className="font-semibold">{props.company}</span>
+            <span>, </span>
+            <span className="font-light">
+              {props.location}&nbsp;
+              <ConditionalContent condition={props.remote}>
+                <>(Remote)</>
+              </ConditionalContent>
+            </span>
+          </div>
+          <ConditionalContent condition={props.roles}>
+            <div className="text-sm grid grid-cols-2">
+              <IterativeContent
+                collection={props.roles!}
+                renderer={(role) => (
+                  <>
+                    <div>{role.name}</div>
+                    <div className="text-right">
+                      <ConditionalContent condition={role.end}>
+                        <span>
+                          {role.start} - {role.end}
+                        </span>
+                      </ConditionalContent>
+                      <ConditionalContent condition={!role.end}>
+                        <span>{role.start} - Present</span>
+                      </ConditionalContent>
+                    </div>
+                  </>
+                )}
+              />
+            </div>
+          </ConditionalContent>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="h-screen flex flex-col">
       <header className="sticky top-0 z-50">
@@ -96,135 +190,92 @@ export default function Page() {
           </div>
           <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
             <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
+              {labels.about.headers.experience}
+            </div>
+            <Workplace
+              logoSrc="/img/morgantech/about/workplace/litify.jpg"
+              company="Litify"
+              location="New York, NY"
+              remote={true}
+              roles={[{ name: "Software Engineer", start: "Jul 2025" }]}
+            />
+            <Workplace
+              logoSrc="/img/morgantech/about/workplace/ncino.webp"
+              company="nCino, Inc."
+              location="Wilmington, NC"
+              roles={[
+                {
+                  name: "Associate Software Engineer",
+                  start: "Jan 2023",
+                  end: "Jul 2025",
+                },
+                {
+                  name: "Associate Software Engineer in Test",
+                  start: "Nov 2020",
+                  end: "Jan 2023",
+                },
+              ]}
+            />
+            <Workplace
+              logoSrc="/img/morgantech/about/workplace/safe-data.jpg"
+              company="Safe Data Inc."
+              location="Wallace, NC"
+              roles={[
+                {
+                  name: "Computer Programmer",
+                  start: "Jul 2019",
+                  end: "Sept 2020",
+                },
+              ]}
+            />
+            <Workplace
+              logoSrc="/img/morgantech/about/workplace/ecu.jpg"
+              company="East Carolina University"
+              location="Greenville, North Carolina"
+              roles={[
+                {
+                  name: "Undergraduate Student Researcher",
+                  start: "Dec 2018",
+                  end: "May 2019",
+                },
+              ]}
+            />
+          </div>
+          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
+            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
               {labels.about.headers.skillset}
             </div>
             <div className="grid lg:grid-cols-3 grid-cols-2 gap-1">
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/languages.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Languages</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.languages}
-                      renderer={(lang) => <li>{lang}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/frameworks.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Frameworks &amp; Libraries</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.frameworks}
-                      renderer={(item) => <li>{item}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/tools.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Tools</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.tools}
-                      renderer={(item) => <li>{item}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/concepts.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Concepts</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.concepts}
-                      renderer={(item) => <li>{item}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/practices.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Development Practices</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.practices}
-                      renderer={(item) => <li>{item}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
-              <div className="mb-2">
-                <div className="font-semibold">
-                  <Image
-                    src="/img/morgantech/about/professional.svg"
-                    className="dark:invert inline-block mr-2"
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden={true}
-                  ></Image>
-                  <span>Professional Skills</span>
-                </div>
-                <div className="text-sm ml-6">
-                  <ul>
-                    <IterativeContent
-                      collection={labels.about.professional}
-                      renderer={(item) => <li>{item}</li>}
-                    />
-                  </ul>
-                </div>
-              </div>
+              <Skillset
+                iconSrc="/img/morgantech/about/languages.svg"
+                header={labels.about.headers.languages}
+                skills={labels.about.languages}
+              ></Skillset>
+              <Skillset
+                iconSrc="/img/morgantech/about/frameworks.svg"
+                header={labels.about.headers.frameworks}
+                skills={labels.about.frameworks}
+              ></Skillset>
+              <Skillset
+                iconSrc="/img/morgantech/about/tools.svg"
+                header={labels.about.headers.tools}
+                skills={labels.about.tools}
+              ></Skillset>
+              <Skillset
+                iconSrc="/img/morgantech/about/concepts.svg"
+                header={labels.about.headers.concepts}
+                skills={labels.about.concepts}
+              ></Skillset>
+              <Skillset
+                iconSrc="/img/morgantech/about/practices.svg"
+                header={labels.about.headers.developmentPractices}
+                skills={labels.about.practices}
+              ></Skillset>
+              <Skillset
+                iconSrc="/img/morgantech/about/professional.svg"
+                header={labels.about.headers.professionalSkills}
+                skills={labels.about.professional}
+              ></Skillset>
             </div>
           </div>
         </div>

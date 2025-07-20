@@ -12,6 +12,7 @@ const labels = {
       "Component-Based Architecture",
       "JSON",
       "Object-Oriented Programming",
+      "Single Page Applications",
       "XML",
     ],
     frameworks: [
@@ -28,7 +29,14 @@ const labels = {
     ],
     headers: {
       about: "At a Glance",
+      concepts: "Concepts",
+      developmentPractices: "Development Practices",
+      experience: "Work Experience",
+      frameworks: "Frameworks & Libraries",
+      languages: "Languages",
+      professionalSkills: "Professional Skills",
       skillset: "Technical Competencies",
+      tools: "Tools",
     },
     languages: [
       "Apex",
