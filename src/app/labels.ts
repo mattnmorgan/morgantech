@@ -1,0 +1,81 @@
+const labels = {
+  about: {
+    ataglance: [
+      "I&apos;m an experienced, autonomous, full-stack software engineer delivering value in fast-paced environments via cross-functional collaboration.",
+      "I thrive in overcoming complex challenges in development suites I am familiar with, and absorbent of knowledge for those I&apos;m not, allowing agile development of not only products, but myself.",
+      "I&apos;m a mentor that knowledge-shares through documentation and concentrated learning sessions to ensure the success of my team.",
+      "I have interests in writing, photography, and game development.",
+    ],
+    concepts: [
+      "Accessibility",
+      "Asynchronous Programming",
+      "Component-Based Architecture",
+      "JSON",
+      "Object-Oriented Programming",
+      "XML",
+    ],
+    frameworks: [
+      "Bootstrap",
+      "Cucumber",
+      "Jest",
+      "Lightning Web Components",
+      "NodeJS",
+      "Playwright",
+      "React",
+      "Redux",
+      "SLDS",
+      "Visualforce",
+    ],
+    headers: {
+      about: "At a Glance",
+      skillset: "Technical Competencies",
+    },
+    languages: [
+      "Apex",
+      "CSS",
+      "HTML",
+      "Java",
+      "JavaScript",
+      "Python",
+      "TypeScript",
+    ],
+    practices: [
+      "Agile Methodologies",
+      "Automation Testing",
+      "Debugging",
+      "End-to-End Testing",
+      "Epic Driven Development",
+      "Full-stack Development",
+      "Refactoring",
+      "Regression Testing",
+    ],
+    professional: [
+      "Cross-Functional Collaboration",
+      "Documentation",
+      "Mentorship",
+      "Pair Programming",
+    ],
+    subtitle: "Full-stack Software Engineer",
+    tagline:
+      "Insightful engineer driving company and team value through mentorship, reflection, and cross-functional collaboration",
+    title: "Matthew Morgan",
+    tools: [
+      "Confluence",
+      "Git",
+      "GitHub",
+      "JIRA",
+      "Lucidchart",
+      "Visual Studio Code",
+    ],
+  },
+  copyright: "&copy; 2025 Matthew Morgan. All rights reserved.",
+  images: {
+    email: "Email",
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    matthewmorgan: "Profile photo of Matthew Morgan",
+  },
+  title: "Morgantech",
+};
+
+export default labels;

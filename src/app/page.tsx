@@ -1,102 +1,238 @@
 import Image from "next/image";
+import labels from "@/app/labels";
+import IterativeContent from "@/components/system/iterative-content";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <div className="h-screen flex flex-col">
+      <header className="sticky top-0 z-50">
+        <div className="navbar flex flex-row gap-2 bg-base-300 shadow-sm">
+          <Image
+            className="ms-2 rounded-sm border-1 border-black"
+            src="/img/morgantech/logo.png"
+            width={32}
+            height={32}
+            alt={labels.title}
+          ></Image>
+          <div className="font-semibold">{labels.title}</div>
+          <div className="flex-grow" />
+          <div className="px-3 flex flex-row gap-2">
+            <a href="mailto:matthew@morgantech.info">
+              <Image
+                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+                src="/img/social/email.svg"
+                width={32}
+                height={32}
+                alt={labels.images.email}
+              ></Image>
+            </a>
+            <a href="https://www.linkedin.com/in/mnmorgan/">
+              <Image
+                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+                src="/img/social/linkedin.svg"
+                width={32}
+                height={32}
+                alt={labels.images.linkedin}
+              ></Image>
+            </a>
+            <a href="https://www.github.com/mattnmorgan">
+              <Image
+                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+                src="/img/social/github.svg"
+                width={32}
+                height={32}
+                alt={labels.images.github}
+              ></Image>
+            </a>
+          </div>
+        </div>
+      </header>
+      <main className="flex-grow">
+        <div className="px-2 py-3 flex flex-col items-center justify-items-center max-w-3xl mx-auto">
+          <div className="flex flex-row items-center gap-3 pb-2 max-w-xl">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+              className="rounded-lg border-1 border-black"
+              src="/img/morgantech/matthew.morgan.png"
+              width={128}
+              height={128}
+              alt={labels.images.matthewmorgan}
+            ></Image>
+            <div className="flex flex-col gap-2">
+              <div className="font-semibold text-4xl">{labels.about.title}</div>
+              <div className="text-xl">{labels.about.subtitle}</div>
+              <div className="text-sm">{labels.about.tagline}</div>
+            </div>
+          </div>
+          <div className="divider" />
+          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
+            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
+              {labels.about.headers.about}
+            </div>
+            <div className="flex flex-row gap-0">
+              <div className="flex-2/3 leading-6 text-justify text-sm">
+                <IterativeContent
+                  collection={labels.about.ataglance}
+                  renderer={(line) => {
+                    return (
+                      <p
+                        className="pb-2"
+                        dangerouslySetInnerHTML={{ __html: line }}
+                      />
+                    );
+                  }}
+                />
+              </div>
+              <div className="flex-1/3 flex mx-3">
+                <Image
+                  src="/img/morgantech/about/engineer.svg"
+                  className="dark:invert mx-auto"
+                  alt=""
+                  width={160}
+                  height={160}
+                  aria-hidden={true}
+                ></Image>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
+            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
+              {labels.about.headers.skillset}
+            </div>
+            <div className="grid lg:grid-cols-3 grid-cols-2 gap-1">
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/languages.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Languages</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.languages}
+                      renderer={(lang) => <li>{lang}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/frameworks.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Frameworks &amp; Libraries</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.frameworks}
+                      renderer={(item) => <li>{item}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/tools.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Tools</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.tools}
+                      renderer={(item) => <li>{item}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/concepts.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Concepts</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.concepts}
+                      renderer={(item) => <li>{item}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/practices.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Development Practices</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.practices}
+                      renderer={(item) => <li>{item}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+              <div className="mb-2">
+                <div className="font-semibold">
+                  <Image
+                    src="/img/morgantech/about/professional.svg"
+                    className="dark:invert inline-block mr-2"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden={true}
+                  ></Image>
+                  <span>Professional Skills</span>
+                </div>
+                <div className="text-sm ml-6">
+                  <ul>
+                    <IterativeContent
+                      collection={labels.about.professional}
+                      renderer={(item) => <li>{item}</li>}
+                    />
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="text-xs bg-base-200 px-2 py-3">
+        <div className="flex flex-col items-center">
+          <div dangerouslySetInnerHTML={{ __html: labels.copyright }}></div>
+        </div>
       </footer>
     </div>
   );
