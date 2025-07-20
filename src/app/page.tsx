@@ -51,45 +51,6 @@ export default function Page() {
     );
   }
 
-  function Education(props: {
-    logoSrc?: string;
-    institution: string;
-    location: string;
-    degrees: string[];
-    date: string;
-  }) {
-    return (
-      <>
-        <div className="pb-3">
-          <div className="pb-1">
-            <ConditionalContent condition={props.logoSrc}>
-              <Image
-                className="inline-block mr-2 outline-1 outline-white"
-                src={props.logoSrc!}
-                width={16}
-                height={16}
-                alt=""
-                aria-hidden={true}
-              />
-            </ConditionalContent>
-            <span className="font-semibold">{props.institution}</span>
-            <span>, </span>
-            <span className="font-light">{props.location}</span>
-          </div>
-          <div className="grid grid-cols-2 text-sm">
-            <div>
-              <IterativeContent
-                collection={props.degrees}
-                renderer={(item) => <div>{item}</div>}
-              />
-            </div>
-            <div className="text-right font-mono">{props.date}</div>
-          </div>
-        </div>
-      </>
-    );
-  }
-
   function Workplace(props: {
     logoSrc?: string;
     company: string;
@@ -97,7 +58,7 @@ export default function Page() {
     remote?: boolean;
     roles?: {
       name: string;
-      start: string;
+      start?: string;
       end?: string;
     }[];
   }) {
@@ -132,13 +93,16 @@ export default function Page() {
                   <>
                     <div>{role.name}</div>
                     <div className="text-right font-mono">
-                      <ConditionalContent condition={role.end}>
+                      <ConditionalContent condition={role.end && role.start}>
                         <span>
                           {role.start} - {role.end}
                         </span>
                       </ConditionalContent>
-                      <ConditionalContent condition={!role.end}>
-                        <span>{role.start} - Present</span>
+                      <ConditionalContent condition={role.end && !role.start}>
+                        <span>{role.end}</span>
+                      </ConditionalContent>
+                      <ConditionalContent condition={role.start && !role.end}>
+                        <span>{role.start} - Present </span>
                       </ConditionalContent>
                     </div>
                   </>
@@ -324,54 +288,68 @@ export default function Page() {
             </div>
           </Section>
           <Section title={labels.about.headers.education}>
-            <Education
+            <Workplace
               logoSrc="/img/morgantech/about/workplace/ecu.jpg"
-              institution="East Carolina University"
+              company="East Carolina University"
               location="Greenville, NC"
-              degrees={["Bachelor of Science in Computer Science"]}
-              date="May 2019"
-            />
-            <Education
-              logoSrc="/img/morgantech/about/workplace/jscc.png"
-              institution="James Sprunt Community College"
-              location="Kenansville, NC"
-              degrees={[
-                "Associate of Science",
-                "Associate of Arts",
-                "Associate of General Education",
-                "Computer Networking Certification",
-                "Web Design Certification",
+              roles={[
+                {
+                  name: "Bachelor of Science in Computer Science",
+                  end: "May 2019",
+                },
               ]}
-              date="May 2016"
+            />
+            <Workplace
+              logoSrc="/img/morgantech/about/workplace/jscc.png"
+              company="James Sprunt Community College"
+              location="Kenansville, NC"
+              roles={[
+                { name: "Associate of Science", end: "May 2016" },
+                { name: "Associate of Arts" },
+                { name: "Associate of General Education" },
+                { name: "Computer Networking Certification" },
+                { name: "Web Design Certification" },
+              ]}
             />
             <div className="divider" />
-            <Education
+            <Workplace
               logoSrc="/img/morgantech/about/workplace/udemy.png"
-              institution="Udemy"
+              company="Udemy"
               location="Online"
-              degrees={["Ultimate Redux Course (with Latest Redux Toolkit)"]}
-              date="Feb 2024"
+              roles={[
+                {
+                  name: "Ultimate Redux Course (with Latest Redux Toolkit)",
+                  end: "Feb 2024",
+                },
+              ]}
             />
-            <Education
+            <Workplace
               logoSrc="/img/morgantech/about/workplace/python-institute.jpg"
-              institution="Python Institute"
+              company="Python Institute"
               location="Online"
-              degrees={["Certified Entry-Level Python Programmer"]}
-              date="Jun 2022"
+              roles={[
+                {
+                  name: "Certified Entry-Level Python Programmer",
+                  end: "Jun 2022",
+                },
+              ]}
             />
-            <Education
+            <Workplace
               logoSrc="/img/morgantech/about/workplace/udacity.jpg"
-              institution="Udacity"
+              company="Udacity"
               location="Online"
-              degrees={["Web Accessibility"]}
-              date="Jun 2022"
+              roles={[{ name: "Web Accessibility", end: "Jun 2022" }]}
             />
-            <Education
+            <Workplace
               logoSrc="/img/morgantech/about/workplace/certiport.png"
-              institution="Certiport"
+              company="Certiport"
               location="Online"
-              degrees={["Microsoft Office 2013 Specialist Master"]}
-              date="Mar 2016"
+              roles={[
+                {
+                  name: "Microsoft Office 2013 Specialist Master",
+                  end: "Mar 2016",
+                },
+              ]}
             />
           </Section>
         </div>
