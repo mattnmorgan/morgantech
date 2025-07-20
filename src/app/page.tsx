@@ -1,9 +1,24 @@
+import React from "react";
 import Image from "next/image";
 import labels from "@/app/labels";
 import IterativeContent from "@/components/system/iterative-content";
 import ConditionalContent from "@/components/system/conditional-content";
 
 export default function Page() {
+  function Section(props: {
+    title: string;
+    children: React.ReactNode | React.ReactNode[];
+  }) {
+    return (
+      <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
+        <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
+          {props.title}
+        </div>
+        {props.children}
+      </div>
+    );
+  }
+
   function Skillset(props: {
     iconSrc: string;
     header: string;
@@ -30,6 +45,45 @@ export default function Page() {
                 renderer={(skill) => <li>{skill}</li>}
               />
             </ul>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  function Education(props: {
+    logoSrc?: string;
+    institution: string;
+    location: string;
+    degrees: string[];
+    date: string;
+  }) {
+    return (
+      <>
+        <div className="pb-3">
+          <div className="pb-1">
+            <ConditionalContent condition={props.logoSrc}>
+              <Image
+                className="inline-block mr-2 outline-1 outline-white"
+                src={props.logoSrc!}
+                width={16}
+                height={16}
+                alt=""
+                aria-hidden={true}
+              />
+            </ConditionalContent>
+            <span className="font-semibold">{props.institution}</span>
+            <span>, </span>
+            <span className="font-light">{props.location}</span>
+          </div>
+          <div className="grid grid-cols-2 text-sm">
+            <div>
+              <IterativeContent
+                collection={props.degrees}
+                renderer={(item) => <div>{item}</div>}
+              />
+            </div>
+            <div className="text-right font-mono">{props.date}</div>
           </div>
         </div>
       </>
@@ -158,10 +212,7 @@ export default function Page() {
             </div>
           </div>
           <div className="divider" />
-          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
-            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
-              {labels.about.headers.about}
-            </div>
+          <Section title={labels.about.headers.about}>
             <div className="flex flex-row gap-0">
               <div className="flex-2/3 leading-6 text-justify text-sm">
                 <IterativeContent
@@ -187,11 +238,8 @@ export default function Page() {
                 ></Image>
               </div>
             </div>
-          </div>
-          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
-            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
-              {labels.about.headers.experience}
-            </div>
+          </Section>
+          <Section title={labels.about.headers.experience}>
             <Workplace
               logoSrc="/img/morgantech/about/workplace/litify.jpg"
               company="Litify"
@@ -240,11 +288,8 @@ export default function Page() {
                 },
               ]}
             />
-          </div>
-          <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
-            <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
-              {labels.about.headers.skillset}
-            </div>
+          </Section>
+          <Section title={labels.about.headers.skillset}>
             <div className="grid lg:grid-cols-3 grid-cols-2 gap-1">
               <Skillset
                 iconSrc="/img/morgantech/about/languages.svg"
@@ -277,7 +322,58 @@ export default function Page() {
                 skills={labels.about.professional}
               ></Skillset>
             </div>
-          </div>
+          </Section>
+          <Section title={labels.about.headers.education}>
+            <Education
+              logoSrc="/img/morgantech/about/workplace/ecu.jpg"
+              institution="East Carolina University"
+              location="Greenville, NC"
+              degrees={["Bachelor of Science in Computer Science"]}
+              date="May 2019"
+            />
+            <Education
+              logoSrc="/img/morgantech/about/workplace/jscc.png"
+              institution="James Sprunt Community College"
+              location="Kenansville, NC"
+              degrees={[
+                "Associate of Science",
+                "Associate of Arts",
+                "Associate of General Education",
+                "Computer Networking Certification",
+                "Web Design Certification",
+              ]}
+              date="May 2016"
+            />
+            <div className="divider" />
+            <Education
+              logoSrc="/img/morgantech/about/workplace/udemy.png"
+              institution="Udemy"
+              location="Online"
+              degrees={["Ultimate Redux Course (with Latest Redux Toolkit)"]}
+              date="Feb 2024"
+            />
+            <Education
+              logoSrc="/img/morgantech/about/workplace/python-institute.jpg"
+              institution="Python Institute"
+              location="Online"
+              degrees={["Certified Entry-Level Python Programmer"]}
+              date="Jun 2022"
+            />
+            <Education
+              logoSrc="/img/morgantech/about/workplace/udacity.jpg"
+              institution="Udacity"
+              location="Online"
+              degrees={["Web Accessibility"]}
+              date="Jun 2022"
+            />
+            <Education
+              logoSrc="/img/morgantech/about/workplace/certiport.png"
+              institution="Certiport"
+              location="Online"
+              degrees={["Microsoft Office 2013 Specialist Master"]}
+              date="Mar 2016"
+            />
+          </Section>
         </div>
       </main>
       <footer className="text-xs bg-base-200 px-2 py-3">
