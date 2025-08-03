@@ -1,8 +1,15 @@
+import React from "react";
+
 export type Props = {
   /**
    * Unique identifier for the drawer
    */
   drawerId: string;
+
+  /**
+   * Drawer width class, defaults to 80px
+   */
+  drawerWidthClass?: string;
 
   /**
    * Is the drawer open?
@@ -13,6 +20,8 @@ export type Props = {
    * Event handler for when the drawer closes
    */
   onClose?: () => void;
+
+  children: React.ReactNode;
 };
 
 export const labels = {
@@ -36,11 +45,13 @@ export default function Component(props: Props) {
           className="drawer-overlay"
           onClick={() => props.onClose?.()}
         ></label>
-        <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          <div className="flex flex-col gap-2">
-            <div>Content 1</div>
-            <div>content 2</div>
-          </div>
+        <div
+          className={
+            "menu bg-base-200 text-base-content min-h-full p-4 " +
+            (props.drawerWidthClass ?? "w-80")
+          }
+        >
+          <div className="flex flex-col gap-2">{props.children}</div>
         </div>
       </div>
     </>

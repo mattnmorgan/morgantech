@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Layout from "@/components/system/navigation-layout";
+import Header from "@/components/app/header";
+import Footer from "@/components/app/footer";
 
 export const metadata: Metadata = {
   title: "Morgantech",
@@ -14,7 +17,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased select-none">
-        <div className="h-screen flex flex-col">{children}</div>
+        <div className="h-screen flex flex-col">
+          <Layout
+            headerDrawer={<></>}
+            header={<Header />}
+            body={children}
+            footer={<Footer />}
+          />
+        </div>
       </body>
     </html>
   );
