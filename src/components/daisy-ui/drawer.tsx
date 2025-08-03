@@ -47,7 +47,7 @@ export default function Component(props: Props) {
         ></label>
         <div
           className={
-            "menu bg-base-200 text-base-content min-h-full p-4 " +
+            "bg-base-200 text-base-content min-h-full p-4 " +
             (props.drawerWidthClass ?? "w-80")
           }
         >

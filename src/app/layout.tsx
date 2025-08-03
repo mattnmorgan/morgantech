@@ -3,6 +3,7 @@ import "./globals.css";
 import Layout from "@/components/system/navigation-layout";
 import Header from "@/components/app/header";
 import Footer from "@/components/app/footer";
+import HeaderDrawer from "@/components/app/header-drawer";
 
 export const metadata: Metadata = {
   title: "Morgantech",
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body className="antialiased select-none">
         <div className="h-screen flex flex-col">
           <Layout
-            headerDrawer={<></>}
+            headerDrawer={<HeaderDrawer />}
             header={<Header />}
             body={children}
             footer={<Footer />}
