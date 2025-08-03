@@ -1,165 +1,229 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import labels from "@/app/labels";
+import Layout from "@/components/system/navigation-layout";
 import IterativeContent from "@/components/system/iterative-content";
-import ConditionalContent from "@/components/system/conditional-content";
+import Section from "@/components/app/section";
+import Skillset from "@/components/app/skillset";
+import Highlight from "@/components/app/highlight";
+import Drawer from "@/components/daisy-ui/drawer";
 
 export default function Page() {
-  function Section(props: {
-    title: string;
-    children: React.ReactNode | React.ReactNode[];
-  }) {
-    return (
-      <div className="rounded-sm bg-base-300 px-3 py-2 m-w-3xl w-full mb-3">
-        <div className="font-semibold text-xl pb-3 mb-3 border-b-1">
-          {props.title}
-        </div>
-        {props.children}
-      </div>
-    );
-  }
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
-  function Skillset(props: {
-    iconSrc: string;
-    header: string;
-    skills: string[];
-  }) {
+  function PageHeader() {
     return (
       <>
-        <div className="mb-2">
-          <div className="font-semibold">
+        <div className="md:hidden flex flex-row px-3 gap-2">
+          <button
+            className="btn mx-0 px-0 w-[36px]"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <Image
-              src={props.iconSrc}
-              className="dark:invert inline-block mr-2"
-              alt=""
-              width={16}
-              height={16}
-              aria-hidden={true}
+              className="dark:invert"
+              src="/img/global/menu.svg"
+              width={32}
+              height={32}
+              alt={labels.navigationMenu}
+            />
+          </button>
+        </div>
+        <Image
+          className="ms-2 rounded-sm border-1 border-black"
+          src="/img/morgantech/logo.png"
+          width={32}
+          height={32}
+          alt={labels.title}
+        ></Image>
+        <div className="font-semibold">{labels.title}</div>
+        <div className="hidden md:flex flex-row px-3 gap-2">
+          <div>Test</div>
+          <div>Test</div>
+        </div>
+        <div className="flex-grow" />
+        <div className="px-3 flex flex-row gap-2">
+          <a href="mailto:matthew@morgantech.info">
+            <Image
+              className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+              src="/img/social/email.svg"
+              width={32}
+              height={32}
+              alt={labels.images.email}
             ></Image>
-            <span>{props.header}</span>
-          </div>
-          <div className="text-sm ml-6">
-            <ul>
-              <IterativeContent
-                collection={props.skills}
-                renderer={(skill) => <li>{skill}</li>}
-              />
-            </ul>
-          </div>
+          </a>
+          <a href="https://www.linkedin.com/in/mnmorgan/">
+            <Image
+              className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+              src="/img/social/linkedin.svg"
+              width={32}
+              height={32}
+              alt={labels.images.linkedin}
+            ></Image>
+          </a>
+          <a href="https://www.github.com/mattnmorgan">
+            <Image
+              className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
+              src="/img/social/github.svg"
+              width={32}
+              height={32}
+              alt={labels.images.github}
+            ></Image>
+          </a>
         </div>
       </>
     );
   }
 
-  function Workplace(props: {
-    logoSrc?: string;
-    company: string;
-    location: string;
-    remote?: boolean;
-    roles?: {
-      name: string;
-      start?: string;
-      end?: string;
-    }[];
-  }) {
+  function PageBody() {
+    function highlight(
+      logo: string,
+      name: string,
+      location: string,
+      data: { name: string; start?: string; end?: string }[],
+      remote: boolean = false
+    ) {
+      return { logo, name, location, data, remote };
+    }
+
+    function skillset(icon: string, header: string, skills: string[]) {
+      return { icon, header, skills };
+    }
+
+    const workHighlights = [
+      highlight(
+        "/img/morgantech/about/workplace/litify.jpg",
+        "Litify",
+        "New York, NY",
+        [{ name: "Software Engineer", start: "Jul 2025" }],
+        true
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/ncino.webp",
+        "nCino, Inc.",
+        "Wilmington, NC",
+        [
+          {
+            name: "Associate Software Engineer",
+            start: "Jan 2023",
+            end: "Jul 2025",
+          },
+          {
+            name: "Associate Software Engineer in Test",
+            start: "Nov 2020",
+            end: "Jan 2023",
+          },
+        ],
+        false
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/safe-data.jpg",
+        "Safe Data Inc.",
+        "Wallace, NC",
+        [{ name: "Computer Programmer", start: "Jul 2019", end: "Sep 2020" }],
+        false
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/ecu.jpg",
+        "East Carolina University",
+        "Greenville, NC",
+        [
+          {
+            name: "Undergraduate Student Researcher",
+            start: "Dec 2018",
+            end: "May 2019",
+          },
+        ],
+        false
+      ),
+    ];
+    const skillsets = [
+      skillset(
+        "/img/morgantech/about/languages.svg",
+        labels.about.headers.languages,
+        labels.about.languages
+      ),
+      skillset(
+        "/img/morgantech/about/frameworks.svg",
+        labels.about.headers.frameworks,
+        labels.about.frameworks
+      ),
+      skillset(
+        "/img/morgantech/about/tools.svg",
+        labels.about.headers.tools,
+        labels.about.tools
+      ),
+      skillset(
+        "/img/morgantech/about/concepts.svg",
+        labels.about.headers.concepts,
+        labels.about.concepts
+      ),
+      skillset(
+        "/img/morgantech/about/practices.svg",
+        labels.about.headers.developmentPractices,
+        labels.about.practices
+      ),
+      skillset(
+        "/img/morgantech/about/professional.svg",
+        labels.about.headers.professionalSkills,
+        labels.about.professional
+      ),
+    ];
+    const eduHighlights = [
+      highlight(
+        "/img/morgantech/about/workplace/ecu.jpg",
+        "East Carolina University",
+        "Greenville, NC",
+        [{ name: "Bachelor of Science in Computer Science", end: "May 2019" }]
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/jscc.png",
+        "James Sprunt Community College",
+        "Kenansville, NC",
+        [
+          { name: "Associate of Science", end: "May 2016" },
+          { name: "Associate of Arts" },
+          { name: "Associate of General Education" },
+          { name: "Computer Networking Certification" },
+          { name: "Web Design Certification" },
+        ]
+      ),
+    ];
+    const certHighlights = [
+      highlight(
+        "/img/morgantech/about/workplace/udemy.png",
+        "Udemy",
+        "Online",
+        [
+          {
+            name: "Ultimate Redux Course (with Latest Redux Toolkit)",
+            end: "Feb 2024",
+          },
+        ]
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/python-institute.jpg",
+        "Python Institute",
+        "Online",
+        [{ name: "Certified Entry-Level Python Programmer", end: "Jun 2022" }]
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/udacity.jpg",
+        "Udacity",
+        "Online",
+        [{ name: "Web Accessibility", end: "Jun 2022" }]
+      ),
+      highlight(
+        "/img/morgantech/about/workplace/certiport.png",
+        "Certiport",
+        "Online",
+        [{ name: "Microsoft Office 2013 Specialist Master", end: "Mar 2016" }]
+      ),
+    ];
+
     return (
       <>
-        <div className="pb-3">
-          <div className="pb-1">
-            <ConditionalContent condition={props.logoSrc}>
-              <Image
-                className="inline-block mr-2 outline-1 outline-white"
-                src={props.logoSrc!}
-                width={16}
-                height={16}
-                alt=""
-                aria-hidden={true}
-              />
-            </ConditionalContent>
-            <span className="font-semibold">{props.company}</span>
-            <span>, </span>
-            <span className="font-light">
-              {props.location}&nbsp;
-              <ConditionalContent condition={props.remote}>
-                <>(Remote)</>
-              </ConditionalContent>
-            </span>
-          </div>
-          <ConditionalContent condition={props.roles}>
-            <div className="text-sm grid grid-cols-2">
-              <IterativeContent
-                collection={props.roles!}
-                renderer={(role) => (
-                  <>
-                    <div>{role.name}</div>
-                    <div className="text-right font-mono">
-                      <ConditionalContent condition={role.end && role.start}>
-                        <span>
-                          {role.start} - {role.end}
-                        </span>
-                      </ConditionalContent>
-                      <ConditionalContent condition={role.end && !role.start}>
-                        <span>{role.end}</span>
-                      </ConditionalContent>
-                      <ConditionalContent condition={role.start && !role.end}>
-                        <span>{role.start} - Present </span>
-                      </ConditionalContent>
-                    </div>
-                  </>
-                )}
-              />
-            </div>
-          </ConditionalContent>
-        </div>
-      </>
-    );
-  }
-
-  return (
-    <div className="h-screen flex flex-col">
-      <header className="sticky top-0 z-50">
-        <div className="navbar flex flex-row gap-2 bg-base-300 shadow-sm">
-          <Image
-            className="ms-2 rounded-sm border-1 border-black"
-            src="/img/morgantech/logo.png"
-            width={32}
-            height={32}
-            alt={labels.title}
-          ></Image>
-          <div className="font-semibold">{labels.title}</div>
-          <div className="flex-grow" />
-          <div className="px-3 flex flex-row gap-2">
-            <a href="mailto:matthew@morgantech.info">
-              <Image
-                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
-                src="/img/social/email.svg"
-                width={32}
-                height={32}
-                alt={labels.images.email}
-              ></Image>
-            </a>
-            <a href="https://www.linkedin.com/in/mnmorgan/">
-              <Image
-                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
-                src="/img/social/linkedin.svg"
-                width={32}
-                height={32}
-                alt={labels.images.linkedin}
-              ></Image>
-            </a>
-            <a href="https://www.github.com/mattnmorgan">
-              <Image
-                className="dark:invert active:outline-2 hover:outline-primary hover:opacity-60"
-                src="/img/social/github.svg"
-                width={32}
-                height={32}
-                alt={labels.images.github}
-              ></Image>
-            </a>
-          </div>
-        </div>
-      </header>
-      <main className="flex-grow">
         <div className="px-2 py-3 flex flex-col items-center justify-items-center max-w-3xl mx-auto">
           <div className="flex flex-row items-center gap-3 pb-2 max-w-xl">
             <Image
@@ -204,161 +268,79 @@ export default function Page() {
             </div>
           </Section>
           <Section title={labels.about.headers.experience}>
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/litify.jpg"
-              company="Litify"
-              location="New York, NY"
-              remote={true}
-              roles={[{ name: "Software Engineer", start: "Jul 2025" }]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/ncino.webp"
-              company="nCino, Inc."
-              location="Wilmington, NC"
-              roles={[
-                {
-                  name: "Associate Software Engineer",
-                  start: "Jan 2023",
-                  end: "Jul 2025",
-                },
-                {
-                  name: "Associate Software Engineer in Test",
-                  start: "Nov 2020",
-                  end: "Jan 2023",
-                },
-              ]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/safe-data.jpg"
-              company="Safe Data Inc."
-              location="Wallace, NC"
-              roles={[
-                {
-                  name: "Computer Programmer",
-                  start: "Jul 2019",
-                  end: "Sep 2020",
-                },
-              ]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/ecu.jpg"
-              company="East Carolina University"
-              location="Greenville, North Carolina"
-              roles={[
-                {
-                  name: "Undergraduate Student Researcher",
-                  start: "Dec 2018",
-                  end: "May 2019",
-                },
-              ]}
+            <IterativeContent
+              collection={workHighlights}
+              renderer={(item) => (
+                <Highlight
+                  logoSrc={item.logo}
+                  location={item.location}
+                  roles={item.data}
+                  company={item.name}
+                  remote={item.remote}
+                />
+              )}
             />
           </Section>
           <Section title={labels.about.headers.skillset}>
             <div className="grid lg:grid-cols-3 grid-cols-2 gap-1">
-              <Skillset
-                iconSrc="/img/morgantech/about/languages.svg"
-                header={labels.about.headers.languages}
-                skills={labels.about.languages}
-              ></Skillset>
-              <Skillset
-                iconSrc="/img/morgantech/about/frameworks.svg"
-                header={labels.about.headers.frameworks}
-                skills={labels.about.frameworks}
-              ></Skillset>
-              <Skillset
-                iconSrc="/img/morgantech/about/tools.svg"
-                header={labels.about.headers.tools}
-                skills={labels.about.tools}
-              ></Skillset>
-              <Skillset
-                iconSrc="/img/morgantech/about/concepts.svg"
-                header={labels.about.headers.concepts}
-                skills={labels.about.concepts}
-              ></Skillset>
-              <Skillset
-                iconSrc="/img/morgantech/about/practices.svg"
-                header={labels.about.headers.developmentPractices}
-                skills={labels.about.practices}
-              ></Skillset>
-              <Skillset
-                iconSrc="/img/morgantech/about/professional.svg"
-                header={labels.about.headers.professionalSkills}
-                skills={labels.about.professional}
-              ></Skillset>
+              <IterativeContent
+                collection={skillsets}
+                renderer={(skillset) => (
+                  <Skillset
+                    iconSrc={skillset.icon}
+                    header={skillset.header}
+                    skills={skillset.skills}
+                  />
+                )}
+              />
             </div>
           </Section>
           <Section title={labels.about.headers.education}>
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/ecu.jpg"
-              company="East Carolina University"
-              location="Greenville, NC"
-              roles={[
-                {
-                  name: "Bachelor of Science in Computer Science",
-                  end: "May 2019",
-                },
-              ]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/jscc.png"
-              company="James Sprunt Community College"
-              location="Kenansville, NC"
-              roles={[
-                { name: "Associate of Science", end: "May 2016" },
-                { name: "Associate of Arts" },
-                { name: "Associate of General Education" },
-                { name: "Computer Networking Certification" },
-                { name: "Web Design Certification" },
-              ]}
+            <IterativeContent
+              collection={eduHighlights}
+              renderer={(item) => (
+                <Highlight
+                  logoSrc={item.logo}
+                  company={item.name}
+                  roles={item.data}
+                  location={item.location}
+                />
+              )}
             />
             <div className="divider" />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/udemy.png"
-              company="Udemy"
-              location="Online"
-              roles={[
-                {
-                  name: "Ultimate Redux Course (with Latest Redux Toolkit)",
-                  end: "Feb 2024",
-                },
-              ]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/python-institute.jpg"
-              company="Python Institute"
-              location="Online"
-              roles={[
-                {
-                  name: "Certified Entry-Level Python Programmer",
-                  end: "Jun 2022",
-                },
-              ]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/udacity.jpg"
-              company="Udacity"
-              location="Online"
-              roles={[{ name: "Web Accessibility", end: "Jun 2022" }]}
-            />
-            <Workplace
-              logoSrc="/img/morgantech/about/workplace/certiport.png"
-              company="Certiport"
-              location="Online"
-              roles={[
-                {
-                  name: "Microsoft Office 2013 Specialist Master",
-                  end: "Mar 2016",
-                },
-              ]}
+            <IterativeContent
+              collection={certHighlights}
+              renderer={(item) => (
+                <Highlight
+                  logoSrc={item.logo}
+                  company={item.name}
+                  roles={item.data}
+                  location={item.location}
+                />
+              )}
             />
           </Section>
         </div>
-      </main>
-      <footer className="text-xs bg-base-200 px-2 py-3">
-        <div className="flex flex-col items-center">
-          <div dangerouslySetInnerHTML={{ __html: labels.copyright }}></div>
-        </div>
-      </footer>
-    </div>
+      </>
+    );
+  }
+
+  function PageFooter() {
+    return <div dangerouslySetInnerHTML={{ __html: labels.copyright }}></div>;
+  }
+
+  return (
+    <>
+      <Drawer
+        drawerId="test"
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      ></Drawer>
+      <Layout
+        header={<PageHeader />}
+        body={<PageBody />}
+        footer={<PageFooter />}
+      ></Layout>
+    </>
   );
 }

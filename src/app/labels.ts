@@ -12,7 +12,6 @@ const labels = {
       "Component-Based Architecture",
       "JSON",
       "Object-Oriented Programming",
-      "Single Page Applications",
       "XML",
     ],
     frameworks: [
@@ -85,6 +84,7 @@ const labels = {
     linkedin: "LinkedIn",
     matthewmorgan: "Profile photo of Matthew Morgan",
   },
+  navigationMenu: "Navigation Menu",
   title: "Morgantech",
 };
 

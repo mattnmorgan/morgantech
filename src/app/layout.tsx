@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased select-none">{children}</body>
+      <body className="antialiased select-none">
+        <div className="h-screen flex flex-col">{children}</div>
+      </body>
     </html>
   );
 }

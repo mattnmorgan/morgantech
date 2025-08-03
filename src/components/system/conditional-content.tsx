@@ -8,7 +8,8 @@ export type Props = {
     | number
     | undefined
     | null
-    | object;
+    | object
+    | React.ReactNode;
   children: React.ReactNode | React.ReactNode[];
 };
 
