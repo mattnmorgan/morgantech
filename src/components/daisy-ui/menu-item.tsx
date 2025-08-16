@@ -68,7 +68,7 @@ export default function MenuItem(props: MenuItemProps) {
       <li
         className={props.item.sizeClass}
         onMouseEnter={() => props.onItemHover(props.item.fullId as string)}
-        onFocus={() => props.onItemHover(props.item.fullId as string)}
+        onFocusCapture={() => props.onItemHover(props.item.fullId as string)}
       >
         <details
           open={
@@ -101,7 +101,7 @@ export default function MenuItem(props: MenuItemProps) {
       <li
         className={props.item.sizeClass}
         onMouseEnter={() => props.onItemHover(props.item.fullId as string)}
-        onFocus={() => props.onItemHover(props.item.fullId as string)}
+        onFocusCapture={() => props.onItemHover(props.item.fullId as string)}
       >
         <a
           tabIndex={0}
