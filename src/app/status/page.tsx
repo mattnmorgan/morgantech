@@ -6,7 +6,11 @@ import Badge from "@/components/daisy-ui/badge";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-function ActivityBadge(props: { status: boolean; img: string; label: string }) {
+function ActivityBadge(props: {
+  status: "pending" | "online" | "offline";
+  img: string;
+  label: string;
+}) {
   return (
     <div>
       <div className="flex flex-row">
@@ -21,8 +25,18 @@ function ActivityBadge(props: { status: boolean; img: string; label: string }) {
         <div className="flex flex-col items-center justify-items-center my-auto">
           <Badge
             size="md"
-            label={props.status ? labels.online : labels.offline}
-            flavor={props.status ? "success" : "error"}
+            label={
+              {
+                pending: labels.pending,
+                online: labels.online,
+                offline: labels.offline,
+              }[props.status]
+            }
+            flavor={
+              { pending: "warning", online: "success", offline: "error" }[
+                props.status
+              ] as "warning" | "success" | "error"
+            }
           />
         </div>
       </div>
@@ -31,18 +45,22 @@ function ActivityBadge(props: { status: boolean; img: string; label: string }) {
 }
 
 export default function Page() {
-  const [statuses, setStatuses] = useState({ jellyfin: false });
+  const [statuses, setStatuses] = useState<{
+    [service: string]: "pending" | "online" | "offline";
+  }>({ jellyfin: "pending" });
 
   useEffect(() => {
     const ping = async () => {
       try {
         await fetch("https://jellyfin.morgantech.info/web/");
-        setStatuses({ ...statuses, jellyfin: true });
-      } catch (e) {}
+        setStatuses({ ...statuses, jellyfin: "online" });
+      } catch {
+        setStatuses({ ...statuses, jellyfin: "offline" });
+      }
     };
 
     ping();
-  }, []);
+  }, [statuses]);
 
   return (
     <>

@@ -1,6 +1,7 @@
 const labels = {
   offline: "Offline",
   online: "Online",
+  pending: "Pinging",
   sections: {
     serviceStatus: {
       header: "Service Statuses",
