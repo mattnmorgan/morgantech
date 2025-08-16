@@ -34,8 +34,9 @@ export type MenuItemProps = {
    * Event handler for when an item has been clicked
    *
    * @param itemId The id of the clicked item
+   * @param activeItem The id of the active item
    */
-  onMenuClick: (itemId: string) => void;
+  onMenuClick: (itemId: string, activeItem: string | undefined) => void;
 
   /**
    * The id of the currently active menu item
@@ -106,7 +107,7 @@ export default function MenuItem(props: MenuItemProps) {
         <a
           tabIndex={0}
           className={props.activeItem == props.item.id ? "menu-active" : ""}
-          onClick={() => props.onMenuClick(props.item.id)}
+          onClick={() => props.onMenuClick(props.item.id, props.activeItem)}
         >
           {props.item.label}
         </a>

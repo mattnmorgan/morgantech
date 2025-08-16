@@ -18,8 +18,9 @@ export type Props = {
    * Event handler for when an item has been clicked
    *
    * @param itemId The id of the clicked item
+   * @param activeItem The id of the active item
    */
-  onMenuClick: (itemId: string) => void;
+  onMenuClick: (itemId: string, activeItem: string | undefined) => void;
 
   /**
    * The id of the currently active menu item

@@ -85,6 +85,10 @@ const labels = {
     matthewmorgan: "Profile photo of Matthew Morgan",
   },
   navigationMenu: "Navigation Menu",
+  navigationMenuEntries: {
+    home: "Home",
+    status: "Status",
+  },
   title: "Morgantech",
 };
 
